@@ -57,7 +57,7 @@ Keep the key somewhere safe (you’ll paste it in the next step).
 Or: open **PowerShell** or **Command Prompt**, then run:
 
 ```powershell
-cd C:\College\r4shh\r4shh
+cd C:\rootfolder
 ```
 
 (Replace with the actual path where your project lives.)

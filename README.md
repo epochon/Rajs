@@ -1,4 +1,4 @@
-# The Rational Decision Engine
+# ARBITICKER
 
 A **deterministic, agentic finance system** that simulates a courtroom-style debate before issuing any investment recommendation. The system does **not** provide direct financial advice; it produces a **transparent decision process**.
 

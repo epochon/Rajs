@@ -2,117 +2,207 @@
 
 A **deterministic, agentic finance system** that simulates a courtroom-style debate before issuing any investment recommendation. The system does **not** provide direct financial advice; it produces a **transparent decision process**.
 
-**LLM Provider: Groq** (High-speed inference).
+**LLMs: Groq and DeepSeek only** (no Gemini, no Claude).
 
 ---
 
-## How to run (Step-by-Step)
+## How to run on your laptop (step by step)
 
-Prerequisites: **Python (3.11+)**, **Node.js**, and a **Groq API Key**.
+Assume you’re on **Windows**. You need **Python**, **Node.js**, and an **API key** (Groq or DeepSeek).
 
-### Step 1: Get a Groq API Key
+### Step 1: Install Python
 
-1.  Go to [console.groq.com](https://console.groq.com/).
-2.  Sign up and go to **API Keys**.
-3.  Create a new key and copy it.
+1. Go to [python.org/downloads](https://www.python.org/downloads/) and download **Python 3.11 or 3.12**.
+2. Run the installer.
+3. **Important:** On the first screen, check **“Add Python to PATH”**, then click **Install Now**.
+4. Close and reopen any terminal (PowerShell or Command Prompt) so `python` is recognized.
 
-### Step 2: Clone or Download the Repository
+Check: open a new terminal and run:
 
-1.  Clone this repository or download the ZIP file and extract it.
-2.  Open your terminal (Command Prompt, PowerShell, or Terminal).
-3.  Navigate to the project folder:
-    ```bash
-    cd rational-decision-engine
-    ```
+```powershell
+python --version
+```
 
-### Step 3: Configure the Environment
+You should see something like `Python 3.11.x` or `Python 3.12.x`.
 
-1.  In the project root, find the file `.env.example`.
-2.  Copy it and rename the copy to `.env`.
-3.  Open `.env` in a text editor.
-4.  Paste your API key:
-    ```ini
-    GROQ_API_KEY=gsk_your_key_here
-    LLM_PROVIDER=groq
-    ```
-5.  Save the file.
+### Step 2: Install Node.js
 
-### Step 4: Start the Backend
+1. Go to [nodejs.org](https://nodejs.org/) and download the **LTS** version.
+2. Run the installer (default options are fine).
+3. Close and reopen your terminal.
 
-1.  Open a terminal in the project root.
-2.  Create a virtual environment:
-    ```bash
-    python -m venv .venv
-    ```
-3.  Activate the virtual environment:
-    * **Windows:**
-        ```powershell
-        .venv\Scripts\activate
-        ```
-    * **Mac/Linux:**
-        ```bash
-        source .venv/bin/activate
-        ```
-4.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-5.  Start the API server:
-    ```bash
-    uvicorn api:app --reload --host 0.0.0.0 --port 8000
-    ```
-    *Keep this terminal open.*
+Check:
 
-### Step 5: Start the Frontend
+```powershell
+node --version
+npm --version
+```
 
-1.  Open a **new** terminal window.
-2.  Navigate to the `frontend` directory inside the project:
-    ```bash
-    cd frontend
-    ```
-3.  Install dependencies:
-    ```bash
-    npm install
-    ```
-4.  Start the development server:
-    ```bash
-    npm run dev
-    ```
-5.  You will see a local URL (usually `http://localhost:5173`). Open this in your browser.
+You should see version numbers (e.g. `v20.x.x` and `10.x.x`).
+
+### Step 3: Get an API key
+
+The app uses an AI provider. You need **one** of these:
+
+- **Groq (free tier):** Go to [console.groq.com](https://console.groq.com/), sign up, open **API Keys**, create a key, and copy it.
+- **DeepSeek:** Go to [platform.deepseek.com](https://platform.deepseek.com/), sign up, create an API key, and copy it.
+
+Keep the key somewhere safe (you’ll paste it in the next step).
+
+### Step 4: Open the project folder in a terminal
+
+1. Open **File Explorer** and go to the folder that contains this project (e.g. `C:\College\r4shh\r4shh`).
+2. In the address bar, type `cmd` or `powershell` and press Enter. A terminal will open in that folder.
+
+Or: open **PowerShell** or **Command Prompt**, then run:
+
+```powershell
+cd C:\College\r4shh\r4shh
+```
+
+(Replace with the actual path where your project lives.)
+
+### Step 5: Create the `.env` file
+
+1. In the same folder (`r4shh`), find the file **`.env.example`**.
+2. Copy it and rename the copy to **`.env`** (no “.example”).
+3. Open **`.env`** in Notepad or any editor.
+4. Paste your API key:
+   - If you use **Groq**, set:  
+     `GROQ_API_KEY=your_groq_key_here`  
+     and keep:  
+     `LLM_PROVIDER=groq`
+   - If you use **DeepSeek**, set:  
+     `DEEPSEEK_API_KEY=your_deepseek_key_here`  
+     and set:  
+     `LLM_PROVIDER=deepseek`
+5. Save and close the file.
+
+### Step 6: Start the backend (first terminal)
+
+In the terminal where you’re in `C:\College\r4shh\r4shh`, run these commands **one by one**:
+
+```powershell
+python -m venv .venv
+```
+
+Then activate the virtual environment (Windows):
+
+```powershell
+.venv\Scripts\activate
+```
+
+You should see `(.venv)` at the start of the line. Then:
+
+```powershell
+pip install -r requirements.txt
+uvicorn api:app --reload --host 0.0.0.0 --port 8000
+```
+
+Leave this terminal **open**. When it’s ready you’ll see something like: `Uvicorn running on http://0.0.0.0:8000`.
+
+**If activate doesn’t work** (e.g. “The module '.venv' could not be loaded” or “uvicorn is not recognized”), use the venv’s Python directly (no activate needed):
+
+```powershell
+cd C:\College\r4shh\r4shh
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn api:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Step 7: Start the frontend (second terminal)
+
+1. Open a **new** terminal (PowerShell or Command Prompt).
+2. Go to the project folder and into the `frontend` folder:
+
+```powershell
+cd C:\College\r4shh\r4shh\frontend
+```
+
+3. Install dependencies and start the app:
+
+```powershell
+npm install
+npm run dev
+```
+
+Leave this terminal **open** too. You’ll see something like: `Local: http://localhost:5173/` (Vite may use 5174, 5175, or 5176 if 5173 is in use — use the URL it prints).
+
+### Step 8: Open the app in your browser
+
+1. Open **Chrome**, **Edge**, or **Firefox**.
+2. In the address bar type the URL from the frontend terminal (e.g. **http://localhost:5173** or **http://localhost:5175**) and press Enter.
+
+You should see **The Rational Decision Engine** page. You can:
+
+- Enter a ticker (e.g. **AAPL** or **AMD**) and click **Analyze** to run the AI.
+- Create a **profile**, add tickers to the **watchlist**, then click **Check watchlist** to see which get a BUY verdict.
+
+**Important:** You must have **both** terminals running (backend + frontend). If the backend is not running, "Create profile" and "Add ticker" will do nothing; the app will show a red error like *"Backend not reachable"*. Profiles are saved in `data/profiles.json` inside the project folder; that file is created automatically when the backend runs and you use profiles.
+
+### If something goes wrong
+
+- **“python is not recognized”** → Install Python again and check **“Add Python to PATH”**; restart the terminal.
+- **“npm is not recognized”** → Install Node.js and restart the terminal.
+- **Backend errors about API key** → Check that `.env` is in the `r4shh` folder (same folder as `api.py`) and that `GROQ_API_KEY` or `DEEPSEEK_API_KEY` is set correctly.
+- **Frontend can’t reach backend** / **“Backend not reachable. Failed to fetch”** → Make sure the backend is running (first terminal with `uvicorn`). The API allows frontend origins on ports 5173–5176; use the URL Vite prints.
+- **Create profile / Add ticker does nothing** → The backend is not running. Start it in a terminal (Step 6). You should see a red message on the page if the backend is unreachable.
+- **“No module named uvicorn”** → Dependencies weren’t installed in this venv. Run: `.\.venv\Scripts\python.exe -m pip install -r requirements.txt` from the project folder, then start uvicorn again.
+- **Port already in use** → Another app is using port 8000 or 5173; close it or change the port. Vite will try 5174, 5175, etc. if 5173 is taken.
 
 ---
 
-## Usage
+## Quick start (CLI)
 
-### Single Ticker Analysis
-1.  Enter a stock ticker (e.g., `AAPL`, `NVDA`, `TSLA`) in the search bar.
-2.  Click **Analyze**.
-3.  The engine will trigger the agents (Bear & Bull) and the quantitative model to generate a transparent report.
+```bash
+python -m venv .venv
+.venv\Scripts\activate   # Windows
+pip install -r requirements.txt
+# Set GROQ_API_KEY or DEEPSEEK_API_KEY in .env
+python main.py AMD
+```
 
-### Watchlist & Profiles
-1.  **Create Profile:** Create a named profile (e.g., "Tech Stocks") to group your interests.
-2.  **Add Tickers:** Add symbols to that profile's watchlist.
-3.  **Check Watchlist:** Click **Run AI Analysis**. The engine runs the full debate relay for every ticker in the list and highlights stocks with a **BUY** verdict.
+## Quick start (API + frontend)
 
-*Note: Profiles are stored locally in `data/profiles.json`.*
+**Terminal 1 — Backend**
+```bash
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn api:app --reload --host 0.0.0.0 --port 8000
+```
 
----
+**Terminal 2 — Frontend**
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173 and use the UI to analyze a ticker.
+
+## Profiles and watchlist
+
+- **Create profiles** — In the UI, create a profile (e.g. “Tech watchlist”) to group stocks you want the AI to track.
+- **Add tickers** — Add symbols to a profile’s watchlist (e.g. AAPL, AMD, MSFT).
+- **Check watchlist** — Click **Check watchlist (run AI analysis)**. The engine runs the Bear/Bull/Quant/Judge relay for each ticker and shows:
+  - **Good time to invest** — tickers that get a **BUY** verdict (highlighted at the top).
+  - **All results** — verdict and confidence for every ticker; click a ticker to see the full analysis.
+
+Profiles and watchlists are stored in `data/profiles.json` (created automatically). This is for decision support only; it does not constitute financial advice.
 
 ## Architecture
 
-1.  **Bear Agent (Risk Analyst):** Powered by Groq. Argues the downside case.
-2.  **Bull Agent (Growth Advocate):** Powered by Groq. Argues the upside case.
-3.  **Quant Tool:** Uses `yfinance` to fetch real-time market data.
-4.  **The Judge:** A deterministic, rule-based system that weighs the arguments and data to output a strict verdict (BUY/HOLD/SELL).
+1. **Bear Agent** — Risk Analyst (Groq/DeepSeek)
+2. **Bull Agent** — Growth Advocate (Groq/DeepSeek)
+3. **Quant Tool** (yfinance) — Market data
+4. **Rule-based Judge** — Deterministic verdict (BUY/HOLD/SELL) from quant only
 
-If market data is missing or incomplete, the verdict defaults to **HOLD**.
+Verdict thresholds: **BUY** ≥60, **HOLD** 40–59, **SELL** &lt;40. Only tickers that exist in yfinance can be analyzed or added to a watchlist.
 
-## Troubleshooting
+## Setup
 
-* **"Backend not reachable":** Ensure the Python terminal is running `uvicorn` and there are no errors.
-* **"API Key Error":** Check your `.env` file to ensure `GROQ_API_KEY` is pasted correctly without spaces.
-* **"Module not found":** Ensure you activated the virtual environment (`.venv`) before running `pip install`.
+- Copy `.env.example` to `.env`. Set **GROQ_API_KEY** or **DEEPSEEK_API_KEY**.
+- `LLM_PROVIDER=groq` or `deepseek`. Optional: `COMBINED_DEBATE=true`, `LITE_MODE=true` to reduce API calls.
 
 ## Disclaimer
 
-This project is a **simulation of a decision-making process**. It is for educational and research purposes only and does **not** constitute financial advice.
+This is a **simulation of a decision process**, not financial advice.
